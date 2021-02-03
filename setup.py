@@ -19,6 +19,7 @@ setup(
         "dev": [
             "pytest>=6.2",
             "twine>=3.3.0",
+            "pytest-dotenv>=0.5.2",
         ]
     },
     classifiers=[
