@@ -46,8 +46,9 @@ class PostgreSQL(object):
     def teardown(self, exception):
         ctx = _app_ctx_stack.top
         if hasattr(ctx, 'postgresql_db'):
-            ctx.postgresql_db.close()
-            logger.debug('Connection closed')
+            if ctx.postgresql_db is not None:
+                ctx.postgresql_db.close()
+                logger.debug('Connection closed')
 
     @property
     def connection(self):

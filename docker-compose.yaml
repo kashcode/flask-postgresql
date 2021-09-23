@@ -1,0 +1,20 @@
+version: '3.2'
+
+# Defining the named volume
+volumes:
+    database:
+
+services:
+
+    database:
+        image: 'postgres:latest'
+        restart: 'always'
+        environment:
+            POSTGRES_USER: 'test'
+            POSTGRES_PASSWORD: 'test'
+            POSTGRES_DB: 'test'
+        volumes:
+            # Mounting the named volume
+            - 'database:/var/lib/postgresql/data/'
+        ports:
+            - '5432:5432'
