@@ -1,5 +1,12 @@
+import logging
+
 from flask import Flask
 from flask_postgresql import PostgreSQL
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)-8s %(name)s %(threadName)s : %(message)s'
+)
 
 app = Flask(__name__)
 app.config["PG_HOST"] = "192.168.99.103"
@@ -8,12 +15,12 @@ app.config["PG_PASSWORD"] = "test"
 app.config["PG_DB"] = "test"
 app.config["PG_PORT"] = "5432"
 
-db = PostgreSQL(app)
+postgres = PostgreSQL(app)
 
 
 @app.route("/")
 def users():
-    connection = db.connection
+    connection = postgres.connection
 
     with connection:
         with connection.cursor() as curs:

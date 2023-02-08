@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="Flask-PostgreSQL",
-    version="1.0.0",
+    version="1.1.0",
     author="Aleksandrs Kašs",
     author_email="aleksandrs.kass@gmail.com",
     description="Flask extension for PostgreSQL",

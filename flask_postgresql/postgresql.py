@@ -1,7 +1,7 @@
 import logging
 
 import psycopg2
-from flask import current_app, _app_ctx_stack
+from flask import current_app, g
 
 logger = logging.getLogger(__name__)
 
@@ -44,16 +44,14 @@ class PostgreSQL(object):
                 logger.debug('Connection opened successfully')
 
     def teardown(self, exception):
-        ctx = _app_ctx_stack.top
-        if hasattr(ctx, 'postgresql_db'):
-            if ctx.postgresql_db is not None:
-                ctx.postgresql_db.close()
-                logger.debug('Connection closed')
+        db = getattr(g, '_postgres_db', None)
+        if db is not None:
+            db.close()
+            logger.debug('Connection closed')
 
     @property
     def connection(self):
-        ctx = _app_ctx_stack.top
-        if ctx is not None:
-            if not hasattr(ctx, 'postgresql_db'):
-                ctx.postgresql_db = self.connect()
-            return ctx.postgresql_db
+        db = getattr(g, '_postgres_db', None)
+        if db is None:
+            db = g._postgres_db = self.connect()
+        return db
