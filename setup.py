@@ -14,7 +14,7 @@ setup(
     url="https://github.com/kashcode/flask-postgresql",
     packages=find_packages(),
     platforms='any',
-    install_requires=['Flask', 'psycopg2'],
+    install_requires=['Flask'],
     extras_require={
         "dev": [
             "pytest>=6.2",
